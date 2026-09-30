@@ -27,8 +27,16 @@ def platform_color(index, total):
 
 
 def moving_platform_speed(index, total):
-    """Return a horizontal oscillation speed in pixels/frame for the platform at this index, or None/0 to keep it static."""
-    pass
+    if total <= 1 or index <= 0:
+        return None
+
+    # Move roughly every third higher platform.
+    if index % 3 != 0:
+        return None
+
+    # Gradually increase movement speed with height.
+    progress = index / (total - 1)
+    return 1.5 + 1.0 * progress
 
 
 def on_coin_collected(coin, score):
