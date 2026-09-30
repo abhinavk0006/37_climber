@@ -12,8 +12,18 @@ LIVES_START = 3
 
 
 def platform_color(index, total):
-    """Return an (r, g, b) colour override for the platform at this index (0 is the ground), or None for the default green."""
-    pass
+    if total <= 1 or index <= 0:
+        return None
+
+    index = min(index, total - 1)
+    t = index / (total - 1)
+
+    # Transition from green through cyan/blue/purple as height increases.
+    r = int(50 + 170 * t)
+    g = int(200 - 120 * t)
+    b = int(80 + 150 * t)
+
+    return (r, g, b)
 
 
 def moving_platform_speed(index, total):
